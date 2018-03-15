@@ -3,10 +3,12 @@ package com.middle.meet_middle.service;
 import com.middle.meet_middle.model.GooglePlacesClient;
 import com.middle.meet_middle.model.User;
 import org.springframework.stereotype.Service;
+import se.walkercrou.places.Place;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -20,6 +22,12 @@ public class UserService {
     }
 
     public User findById(String id) {
+        PlacesService services = new PlacesService();
+        List<Place> list = services.findPlacesByCoordinates(33.033302, -96.841446, 33.046375, -96.83556, 500);
+        for(Place pl : list) {
+           Place p = pl.getDetails();
+           System.out.println(p.getName());
+        }
         return users.get(id);
     }
 }
