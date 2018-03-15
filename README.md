@@ -15,6 +15,10 @@ to set the environment variable and then run
 `mvn spring-boot:run`
 to run the application.
 
-## Current things to be done
-Everything is set up including [Google Places API client](https://github.com/windy1/google-places-api-java) and library to [calculate midpoint.](https://github.com/grumlimited/geocalc) Only thing left to do
-is to fit the methods from Google Places with midpoint calculation and find list of places.
+## Tasks completed
+1) Everything is set up including [Google Places API client](https://github.com/windy1/google-places-api-java) and library to [calculate midpoint.](https://github.com/grumlimited/geocalc). 
+2) Given two coordinates, a list of locations in the geographic midpoint can be found. 
+
+##To Do
+1) .getDetails() is not working
+2) Continue integration with front-end
