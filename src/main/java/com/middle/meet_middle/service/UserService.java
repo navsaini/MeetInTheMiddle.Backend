@@ -25,8 +25,7 @@ public class UserService {
         PlacesService services = new PlacesService();
         List<Place> list = services.findPlacesByCoordinates(33.033302, -96.841446, 33.046375, -96.83556, 500);
         for(Place pl : list) {
-           Place p = pl.getDetails();
-           System.out.println(p.getName());
+           System.out.println(pl);
         }
         return users.get(id);
     }

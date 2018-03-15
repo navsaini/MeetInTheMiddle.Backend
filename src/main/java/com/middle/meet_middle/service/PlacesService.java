@@ -22,7 +22,13 @@ public class PlacesService {
         Point loc1 = Point.at(Coordinate.fromDegrees(startLat), Coordinate.fromDegrees(startLong));
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));
         Point midPoint = EarthCalc.midPoint(loc1, loc2);
-        return client.getNearbyPlaces(midPoint.latitude, midPoint.longitude, radius);
+        try {
+            return client.getNearbyPlaces(midPoint.latitude, midPoint.longitude, radius);
+        }
+        catch (Exception e){
+            System.out.println("No places found");
+            return null;
+        }
 
     }
 }
