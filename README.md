@@ -19,6 +19,7 @@ to run the application.
 1) Everything is set up including [Google Places API client](https://github.com/windy1/google-places-api-java) and library to [calculate midpoint.](https://github.com/grumlimited/geocalc). 
 2) Given two coordinates, a list of locations in the geographic midpoint can be found. 
 
-##To Do
-1) .getDetails() is not working
-2) Continue integration with front-end
+## To Do
+1) Make a custom JSON payload that has the calculated midpoint and a list of all of the places (with name, rating, hours, etc.)
+2) Interate through the reviews and calculate an average rating to be used in the JSON payload sent to front end
+3) Continue integration with front-end
