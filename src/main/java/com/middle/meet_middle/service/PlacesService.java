@@ -1,7 +1,6 @@
 package com.middle.meet_middle.service;
 
 import com.middle.meet_middle.model.GooglePlacesClient;
-import com.middle.meet_middle.model.MyGooglePlaces;
 import se.walkercrou.places.GooglePlaces;
 import se.walkercrou.places.Place;
 
@@ -13,7 +12,7 @@ import com.grum.geocalc.EarthCalc;
 import java.util.List;
 
 public class PlacesService {
-    public MyGooglePlaces client = GooglePlacesClient.getInstance().client;
+    public GooglePlaces client = GooglePlacesClient.getInstance().client;
 
     public List<Place> findPlacesByQuery(String query) {
         return client.getPlacesByQuery(query);

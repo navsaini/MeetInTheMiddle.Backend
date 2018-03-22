@@ -1,3 +1,5 @@
+//Author: Nicolas Berger
+
 package com.middle.meet_middle.model;
 
 import java.io.IOException;
@@ -30,3 +32,4 @@ public class MyRequestHandler extends DefaultRequestHandler {
         return str.trim();
     }
 }
+
