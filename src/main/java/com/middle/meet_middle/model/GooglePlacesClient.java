@@ -1,6 +1,8 @@
 package com.middle.meet_middle.model;
 
 import se.walkercrou.places.GooglePlaces;
+import com.middle.meet_middle.model.MyGooglePlaces;
+import com.middle.meet_middle.model.MyRequestHandler;
 
 public class GooglePlacesClient {
 
@@ -8,7 +10,7 @@ public class GooglePlacesClient {
     public GooglePlaces client;
 
     private GooglePlacesClient() {
-        client = new GooglePlaces(System.getenv("PLACES_KEY"));
+        client = new MyGooglePlaces(System.getenv("PLACES_KEY"), new MyRequestHandler());
     }
 
     public static GooglePlacesClient getInstance() {
