@@ -19,6 +19,7 @@ public class JerseyConfig extends ResourceConfig {
         packages("com.middle.meet_middle");
         // register jackson for json
         register(new ObjectMapperContextResolver(objectMapper));
+        register(CORSResponseFilter.class);
     }
 
     @Provider

@@ -6,6 +6,7 @@ import com.middle.meet_middle.model.PlacesResponse;
 import com.middle.meet_middle.service.PlacesService;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import se.walkercrou.places.Place;
 
 import javax.ws.rs.Path;
@@ -25,27 +26,23 @@ public class PlacesEndpoint {
     @Autowired
     private PlacesService placesService;
 
+    @CrossOrigin
     @GET
     @Path("/{startLat}/{startLong}/{endLat}/{endLong}/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaces(@PathParam("startLat") double startLat, @PathParam("startLong") double startLong,
+    public PlacesResponse getPlaces(@PathParam("startLat") double startLat, @PathParam("startLong") double startLong,
                               @PathParam("endLat") double endLat, @PathParam("endLong") double endLong) {
 
-        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 500);
+        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 5000);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
             Place pDet = p.getDetails();
-            System.out.println(pDet.getName());
             MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress());
             miniPlaces.add(mp);
         }
         PlacesResponse pr = new PlacesResponse(miniPlaces, midPoint.latitude, midPoint.longitude);
-        return Response.ok()
-                .entity(pr)
-                .header("Access-Control-Allow-Origin","*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .allow("OPTIONS")
-                .build();
+        System.out.println(pr);
+        return pr;
     }
 }

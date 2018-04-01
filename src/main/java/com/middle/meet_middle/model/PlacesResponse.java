@@ -12,4 +12,9 @@ public class PlacesResponse {
         this.midLat = midLat;
         this.midLong = midLong;
     }
+
+    @Override
+    public String toString() {
+        return places.toString() + " " + midLat + " " + midLong;
+    }
 }
