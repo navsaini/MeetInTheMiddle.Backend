@@ -1,6 +1,7 @@
 package com.middle.meet_middle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class JerseyConfig extends ResourceConfig {
     public static class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
 
         private final ObjectMapper mapper;
+
 
         public ObjectMapperContextResolver(ObjectMapper mapper) {
             this.mapper = mapper;

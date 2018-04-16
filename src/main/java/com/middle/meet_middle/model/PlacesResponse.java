@@ -1,7 +1,10 @@
 package com.middle.meet_middle.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.List;
 
+@JsonSerialize
 public class PlacesResponse {
     List<MiniPlace> places;
     double midLat;
