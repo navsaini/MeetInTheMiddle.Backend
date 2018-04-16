@@ -1,8 +1,10 @@
 package com.middle.meet_middle.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
 
 @JsonSerialize
+@Data
 public class MiniPlace {
     private String name;
     private String address;

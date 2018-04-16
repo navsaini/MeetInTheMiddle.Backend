@@ -33,7 +33,7 @@ public class PlacesEndpoint {
     public PlacesResponse getPlaces(@PathParam("startLat") double startLat, @PathParam("startLong") double startLong,
                               @PathParam("endLat") double endLat, @PathParam("endLong") double endLong) {
 
-        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 5000);
+        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 500);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
