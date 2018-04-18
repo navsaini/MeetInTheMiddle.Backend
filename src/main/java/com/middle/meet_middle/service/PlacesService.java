@@ -10,29 +10,40 @@ import com.grum.geocalc.Point;
 import com.grum.geocalc.Coordinate;
 import com.grum.geocalc.EarthCalc;
 
+import java.util.ArrayList;
+
 
 
 import java.util.List;
 
 @Service
 public class PlacesService {
+    int MAX_RESULTS = 12;
+
     public GooglePlaces client = GooglePlacesClient.getInstance().client;
 
     public List<Place> findPlacesByQuery(String query) {
         return client.getPlacesByQuery(query);
     }
 
-    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, double radius) {
+    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, double radius, ArrayList<String> locTypes) {
+        int limit = calculateLimit(locTypes);
         Point loc1 = Point.at(Coordinate.fromDegrees(startLat), Coordinate.fromDegrees(startLong));
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));
         Point midPoint = EarthCalc.midPoint(loc1, loc2);
-        try {
-            return client.getNearbyPlaces(midPoint.latitude, midPoint.longitude, radius, Param.name("keyword").value("restaurants"));
+
+        List<Place> finalResult = new ArrayList<>();
+        for(String locType : locTypes) {
+            try {
+                finalResult.addAll(client.getNearbyPlaces(midPoint.latitude, midPoint.longitude, radius, limit, Param.name("keyword").value(locType)));
+            }
+            catch (Exception e){
+                System.out.println("No places found");
+            }
         }
-        catch (Exception e){
-            System.out.println("No places found");
-            return null;
-        }
+
+        return finalResult;
+
 
     }
 
@@ -41,5 +52,10 @@ public class PlacesService {
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));
         Point midPoint = EarthCalc.midPoint(loc1, loc2);
         return midPoint;
+    }
+
+    /* Assumed 4 different location types: parks, bars, coffee shops, parks. */
+    public int calculateLimit(ArrayList<String> locTypes) {
+        return MAX_RESULTS/locTypes.size();
     }
 }

@@ -22,13 +22,13 @@ public class UserService {
     }
 
     public User findById(String id) {
-        PlacesService services = new PlacesService();
-        List<Place> list = services.findPlacesByCoordinates(40.741895, -73.989308, 33.046375, -96.83556, 50000);
-        for(Place pl : list) {
-           Place pl_detailed = pl.getDetails();
-           System.out.println("Name: " + pl_detailed.getName());
-           System.out.println("Review: " + pl_detailed.getRating());
-        }
-        return users.get(id);
+//        PlacesService services = new PlacesService();
+//        List<Place> list = services.findPlacesByCoordinates(40.741895, -73.989308, 33.046375, -96.83556, 50000);
+//        for(Place pl : list) {
+//           Place pl_detailed = pl.getDetails();
+//           System.out.println("Name: " + pl_detailed.getName());
+//           System.out.println("Review: " + pl_detailed.getRating());
+//        }
+       return users.get(id);
     }
 }

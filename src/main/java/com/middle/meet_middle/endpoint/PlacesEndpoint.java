@@ -32,8 +32,14 @@ public class PlacesEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public PlacesResponse getPlaces(@PathParam("startLat") double startLat, @PathParam("startLong") double startLong,
                               @PathParam("endLat") double endLat, @PathParam("endLong") double endLong) {
+        /*To Do: Place the list of location types sent from the front end into the ArrayList. For now, dummy
+          have been placed.
+         */
+        ArrayList<String> locTypes = new ArrayList<>();
+        locTypes.add("restaurant");
+        locTypes.add("coffee");
 
-        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 500);
+        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, 500, locTypes);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
