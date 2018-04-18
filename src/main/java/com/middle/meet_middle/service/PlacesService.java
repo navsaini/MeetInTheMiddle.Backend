@@ -26,7 +26,7 @@ public class PlacesService {
         return client.getPlacesByQuery(query);
     }
 
-    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, double radius, ArrayList<String> locTypes) {
+    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, ArrayList<String> locTypes) {
         int limit = calculateLimit(locTypes);
         Point loc1 = Point.at(Coordinate.fromDegrees(startLat), Coordinate.fromDegrees(startLong));
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));
@@ -35,7 +35,7 @@ public class PlacesService {
         List<Place> finalResult = new ArrayList<>();
         for(String locType : locTypes) {
             try {
-                finalResult.addAll(client.getNearbyPlaces(midPoint.latitude, midPoint.longitude, radius, limit, Param.name("keyword").value(locType)));
+                finalResult.addAll(client.getNearbyPlacesRankedByDistance(midPoint.latitude, midPoint.longitude, limit, Param.name("keyword").value(locType)));
             }
             catch (Exception e){
                 System.out.println("No places found");
