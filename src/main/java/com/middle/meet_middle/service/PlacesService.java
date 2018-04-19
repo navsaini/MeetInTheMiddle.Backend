@@ -10,11 +10,7 @@ import com.grum.geocalc.Point;
 import com.grum.geocalc.Coordinate;
 import com.grum.geocalc.EarthCalc;
 
-import java.util.ArrayList;
-
-
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PlacesService {
@@ -42,9 +38,7 @@ public class PlacesService {
             }
         }
 
-        return finalResult;
-
-
+        return sortByDistance(finalResult, midPoint);
     }
 
     public Point getMidpointCoords(double startLat, double startLong, double endLat, double endLong) {
@@ -55,7 +49,58 @@ public class PlacesService {
     }
 
     /* Assumed 4 different location types: parks, bars, coffee shops, parks. */
-    public int calculateLimit(ArrayList<String> locTypes) {
+    private int calculateLimit(ArrayList<String> locTypes) {
         return MAX_RESULTS/locTypes.size();
+    }
+
+    private List<Place> sortByDistance(List<Place> finalResult, Point midPoint) {
+        List<Double> distance = new ArrayList<>();
+        Map<Double, List<Place>> distanceMap;
+
+        for(Place place : finalResult) {
+            Point p = Point.at(Coordinate.fromDegrees(place.getLatitude()), Coordinate.fromDegrees(place.getLongitude()));
+            distance.add(EarthCalc.gcdDistance(p, midPoint));
+        }
+
+        distanceMap = generateDistancePlaceMap(finalResult, distance);
+        Collections.sort(distance);
+
+        finalResult = sortResults(distance, distanceMap);
+
+        return finalResult;
+    }
+
+    private Map<Double, List<Place>> generateDistancePlaceMap(List<Place> finalResult, List<Double> distance) {
+        Map<Double, List<Place>> distanceMap = new HashMap<>();
+        int finalResultIndex = 0;
+
+        for(Double dist : distance) {
+            if(!distanceMap.containsKey(dist)) {
+                List<Place> newList = new ArrayList<>();
+                newList.add(finalResult.get(finalResultIndex));
+                distanceMap.put(dist, newList);
+            }
+            else {
+                List<Place> oldList = distanceMap.get(dist);
+                oldList.add(finalResult.get(finalResultIndex));
+                distanceMap.put(dist, oldList);
+            }
+            finalResultIndex++;
+        }
+
+        return distanceMap;
+    }
+
+    private List<Place> sortResults(List<Double> distance, Map<Double, List<Place>> distanceMap) {
+        List<Place> finalResult = new ArrayList<>();
+
+        for(Double dist : distance) {
+            List<Place> placeAtDistance = distanceMap.get(dist);
+
+            for(Place place : placeAtDistance) {
+                finalResult.add(place);
+            }
+        }
+        return finalResult;
     }
 }
