@@ -26,4 +26,3 @@ to run the application.
 1) Interate through the reviews and calculate an average rating to be used in the JSON payload sent to front end
 2) Continue integration with front-end
 3) Push to AWS
-4) Figure out how to order returned ArrayList<Places> such that it is ranked by distance; currently has all restaurants, then coffee shops, then bars etc.
