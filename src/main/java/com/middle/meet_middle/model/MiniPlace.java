@@ -8,14 +8,18 @@ import lombok.Data;
 public class MiniPlace {
     private String name;
     private String address;
+    private double latitude;
+    private double longitude;
 
-    public MiniPlace(String name, String address) {
+    public MiniPlace(String name, String address, double latitude, double longitude) {
         this.name = name;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
     public String toString() {
-        return name + " " + address;
+        return name + " " + address + " " + latitude + " " + longitude;
     }
 }

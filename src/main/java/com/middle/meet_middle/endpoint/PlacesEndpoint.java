@@ -46,7 +46,7 @@ public class PlacesEndpoint {
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
             Place pDet = p.getDetails();
-            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress());
+            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getLatitude(), p.getLongitude());
             miniPlaces.add(mp);
         }
         PlacesResponse pr = new PlacesResponse(miniPlaces, midPoint.latitude, midPoint.longitude);
