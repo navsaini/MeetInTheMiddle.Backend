@@ -37,9 +37,9 @@ public class PlacesEndpoint {
          */
         ArrayList<String> locTypes = new ArrayList<>();
         locTypes.add("restaurant");
-        locTypes.add("coffee");
-        locTypes.add("bars");
-        locTypes.add("parks");
+//        locTypes.add("coffee");
+//        locTypes.add("bars");
+//        locTypes.add("parks");
 
         List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, locTypes);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);

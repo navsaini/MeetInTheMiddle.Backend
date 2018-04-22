@@ -14,7 +14,7 @@ import java.util.*;
 
 @Service
 public class PlacesService {
-    int MAX_RESULTS = 12;
+    int MAX_RESULTS = 6;
 
     public GooglePlaces client = GooglePlacesClient.getInstance().client;
 
