@@ -23,6 +23,11 @@ public class PlacesService {
     }
 
     public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, ArrayList<String> locTypes) {
+        if (startLat < -90 || startLat > 90 ||
+                startLong < -180 || startLong > 180 ||
+                endLat < -90 || endLat > 90 ||
+                endLong < -180 || endLong > 180) throw new IllegalArgumentException();
+
         int limit = calculateLimit(locTypes);
         Point loc1 = Point.at(Coordinate.fromDegrees(startLat), Coordinate.fromDegrees(startLong));
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));

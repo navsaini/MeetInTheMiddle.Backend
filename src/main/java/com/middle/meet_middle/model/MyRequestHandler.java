@@ -19,6 +19,7 @@ public class MyRequestHandler extends DefaultRequestHandler {
         try {
             HttpGet get = new HttpGet(uri);
             HttpResponse response = client.execute(get);
+            System.out.println(uri);
             return readString(response);
         } catch (Exception e) {
             throw new IOException(e);
