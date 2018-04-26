@@ -45,7 +45,8 @@ public class PlacesEndpoint {
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
-            Place pDet = p.getDetails();
+            Place pDet = PlacesService.getDetails(p);
+            System.out.println(pDet.getName());
             MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getLatitude(), p.getLongitude());
             miniPlaces.add(mp);
         }

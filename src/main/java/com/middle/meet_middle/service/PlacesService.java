@@ -14,12 +14,23 @@ import java.util.*;
 
 @Service
 public class PlacesService {
-    int MAX_RESULTS = 6;
+    private int MAX_RESULTS = 12;
+    private static Map<String, Place> cachedDetails;
+    private GooglePlaces client = GooglePlacesClient.getInstance().client;
 
-    public GooglePlaces client = GooglePlacesClient.getInstance().client;
+    public PlacesService() {
+        cachedDetails = new HashMap<>();
+    }
 
-    public List<Place> findPlacesByQuery(String query) {
-        return client.getPlacesByQuery(query);
+    public static Place getDetails(Place p) {
+        if (cachedDetails.containsKey(p.getPlaceId())) {
+            System.out.println("Cached response used");
+            return cachedDetails.get(p.getPlaceId());
+        } else {
+            Place placeWithDetails = p.getDetails();
+            cachedDetails.put(p.getPlaceId(), placeWithDetails);
+            return placeWithDetails;
+        }
     }
 
     public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, ArrayList<String> locTypes) {
