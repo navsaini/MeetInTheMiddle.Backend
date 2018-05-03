@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import se.walkercrou.places.Place;
+import se.walkercrou.places.Price;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -43,13 +44,37 @@ public class PlacesEndpoint {
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
             Place pDet = PlacesService.getDetails(p);
+            Price price = p.getPrice();
+            String priceStr = priceToDollars(price);
             System.out.println(pDet.getName());
-            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getLatitude(), p.getLongitude());
+            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getRating(), priceStr, p.getLatitude(), p.getLongitude());
             miniPlaces.add(mp);
         }
         PlacesResponse pr = new PlacesResponse(miniPlaces, midPoint.latitude, midPoint.longitude);
         System.out.println(pr);
         return pr;
+    }
+
+    private String priceToDollars(Price price) {
+        String priceValue = price.toString();
+
+        if(priceValue.equals("FREE")) {
+            return "FREE";
+        }
+        else if(priceValue.equals("INEXPENSIVE")) {
+            return "$";
+        }
+        else if(priceValue.equals("MODERATE")) {
+            return "$$";
+        } else if (priceValue.equals("EXPENSIVE")) {
+            return "$$$";
+        }
+        else if (priceValue.equals("VERY_EXPENSIVE")) {
+            return "$$$$";
+        }
+        else {
+            return "";
+        }
     }
 
 }
