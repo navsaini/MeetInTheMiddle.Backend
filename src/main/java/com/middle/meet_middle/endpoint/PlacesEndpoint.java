@@ -37,7 +37,7 @@ public class PlacesEndpoint {
         /*To Do: Place the list of location types sent from the front end into the ArrayList. For now, dummy
           have been placed.
          */
-        String[] poiTypes = locTypes.split("&");
+        String[] poiTypes = locTypes.split(",");
 
         List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
