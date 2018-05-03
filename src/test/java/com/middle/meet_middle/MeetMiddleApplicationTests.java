@@ -37,10 +37,11 @@ public class MeetMiddleApplicationTests {
 	    double endLat = 30.2882421;
 	    double endLong = -97.73531109999999;
 
-        ArrayList<String> locTypes = new ArrayList<>();
-        locTypes.add("restaurant");
+	    String[] poiTypes = new String[1];
+        poiTypes[0] = "restauraunt";
 
-	    List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, locTypes);
+
+	    List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
 	    assertTrue(places.size() > 0);
     }
 
@@ -53,10 +54,10 @@ public class MeetMiddleApplicationTests {
         double endLat = 49.2827291;
         double endLong = -123.12073750000002;
 
-        ArrayList<String> locTypes = new ArrayList<>();
-        locTypes.add("restaurant");
+        String[] poiTypes = new String[1];
+        poiTypes[0] = "restauraunt";
 
-        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, locTypes);
+        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
         assertTrue(places.size() > 0);
     }
 
@@ -69,11 +70,11 @@ public class MeetMiddleApplicationTests {
         double endLat = 49.2827291;
         double endLong = -123.12073750000002;
 
-        ArrayList<String> locTypes = new ArrayList<>();
-        locTypes.add("restaurant");
+        String[] poiTypes = new String[1];
+        poiTypes[0] = "restauraunt";
 
 	    try {
-            placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, locTypes);
+            placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
         } catch (IllegalArgumentException e) {
 	        return;
         }

@@ -33,19 +33,19 @@ public class PlacesService {
         }
     }
 
-    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, ArrayList<String> locTypes) {
+    public List<Place> findPlacesByCoordinates(double startLat, double startLong, double endLat, double endLong, String[] poiTypes) {
         if (startLat < -90 || startLat > 90 ||
                 startLong < -180 || startLong > 180 ||
                 endLat < -90 || endLat > 90 ||
                 endLong < -180 || endLong > 180) throw new IllegalArgumentException();
 
-        int limit = calculateLimit(locTypes);
+        int limit = calculateLimit(poiTypes);
         Point loc1 = Point.at(Coordinate.fromDegrees(startLat), Coordinate.fromDegrees(startLong));
         Point loc2 = Point.at(Coordinate.fromDegrees(endLat), Coordinate.fromDegrees(endLong));
         Point midPoint = EarthCalc.midPoint(loc1, loc2);
 
         List<Place> finalResult = new ArrayList<>();
-        for(String locType : locTypes) {
+        for(String locType : poiTypes) {
             try {
                 finalResult.addAll(client.getNearbyPlacesRankedByDistance(midPoint.latitude, midPoint.longitude, limit, Param.name("keyword").value(locType)));
             }
@@ -65,8 +65,8 @@ public class PlacesService {
     }
 
     /* Assumed 4 different location types: parks, bars, coffee shops, parks. */
-    private int calculateLimit(ArrayList<String> locTypes) {
-        return MAX_RESULTS/locTypes.size();
+    private int calculateLimit(String[] poiTypes) {
+        return MAX_RESULTS/poiTypes.length;
     }
 
     private List<Place> sortByDistance(List<Place> finalResult, Point midPoint) {
