@@ -17,7 +17,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Component
@@ -35,9 +37,15 @@ public class PlacesEndpoint {
                               @PathParam("endLat") double endLat, @PathParam("endLong") double endLong,
                                     @PathParam ("locTypes") String locTypes) {
 
+        Set<String> poiStrings = new HashSet<>();
+
         String[] poiTypes = locTypes.split(",");
 
-        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
+        for(String poiType : poiTypes) {
+            poiStrings.add(poiType.trim());
+        }
+
+        List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiStrings);
         Point midPoint = placesService.getMidpointCoords(startLat, startLong, endLat, endLong);
         List<MiniPlace> miniPlaces = new ArrayList<>();
         for (Place p: places) {
@@ -45,7 +53,7 @@ public class PlacesEndpoint {
             Price price = p.getPrice();
             String priceStr = priceToDollars(price);
             System.out.println(pDet.getName());
-            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getRating(), priceStr, p.getWebsite(), p.getLatitude(), p.getLongitude());
+            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getRating(), priceStr, p.getLatitude(), p.getLongitude());
             miniPlaces.add(mp);
         }
         PlacesResponse pr = new PlacesResponse(miniPlaces, midPoint.latitude, midPoint.longitude);

@@ -10,7 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import se.walkercrou.places.Place;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -37,8 +39,8 @@ public class MeetMiddleApplicationTests {
 	    double endLat = 30.2882421;
 	    double endLong = -97.73531109999999;
 
-	    String[] poiTypes = new String[1];
-        poiTypes[0] = "restauraunt";
+	    Set<String> poiTypes = new HashSet<>();
+        poiTypes.add("restaurant");
 
 
 	    List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
@@ -54,8 +56,8 @@ public class MeetMiddleApplicationTests {
         double endLat = 49.2827291;
         double endLong = -123.12073750000002;
 
-        String[] poiTypes = new String[1];
-        poiTypes[0] = "restauraunt";
+        Set<String> poiTypes = new HashSet<>();
+        poiTypes.add("restaurant");
 
         List<Place> places = placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
         assertTrue(places.size() > 0);
@@ -70,8 +72,8 @@ public class MeetMiddleApplicationTests {
         double endLat = 49.2827291;
         double endLong = -123.12073750000002;
 
-        String[] poiTypes = new String[1];
-        poiTypes[0] = "restauraunt";
+        Set<String> poiTypes = new HashSet<>();
+        poiTypes.add("restaurant");
 
 	    try {
             placesService.findPlacesByCoordinates(startLat, startLong, endLat, endLong, poiTypes);
