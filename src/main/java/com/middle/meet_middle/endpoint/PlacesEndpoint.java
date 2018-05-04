@@ -47,7 +47,7 @@ public class PlacesEndpoint {
             Price price = p.getPrice();
             String priceStr = priceToDollars(price);
             System.out.println(pDet.getName());
-            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getRating(), priceStr, p.getLatitude(), p.getLongitude());
+            MiniPlace mp = new MiniPlace(pDet.getName(), pDet.getAddress(), p.getRating(), priceStr, p.getWebsite(), p.getLatitude(), p.getLongitude());
             miniPlaces.add(mp);
         }
         PlacesResponse pr = new PlacesResponse(miniPlaces, midPoint.latitude, midPoint.longitude);
