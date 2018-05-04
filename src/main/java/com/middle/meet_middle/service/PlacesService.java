@@ -88,6 +88,15 @@ public class PlacesService {
         Collections.sort(distance);
 
         finalResult = sortResults(distance, distanceMap, threshold);
+        Map<String, Place> uniquePlaceMap = new HashMap<>();
+        for (Place p : finalResult) {
+            uniquePlaceMap.put(p.getPlaceId(), p);
+        }
+
+        finalResult.clear();
+        for (String id: uniquePlaceMap.keySet()) {
+            finalResult.add(uniquePlaceMap.get(id));
+        }
 
         return finalResult;
     }
